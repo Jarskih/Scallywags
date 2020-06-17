@@ -23,38 +23,40 @@ namespace ScallyWags
         private Transform _transform;
         private AnimationController _animationController;
         private RightArmTarget _rightArmTarget;
+        private Player _player;
 
-        public void Init(Transform transform, AnimationController animationController, RightArmTarget rightArmTarget)
+        public void Init(Player player, Transform transform, AnimationController animationController, RightArmTarget rightArmTarget)
         {
             _transform = transform;
             _animationController = animationController;
             _rightArmTarget = rightArmTarget;
+            _player = player;
         }
 
-        public void Tick(Player player, bool pickUpPressed, bool pickupDown, bool pickUpReleased)
+        public void Tick(bool pickUpPressed, bool pickupDown, bool pickUpReleased)
         {
             if (_pickedUpItem != null)
             {
                 _pickedUpItem.transform.position = _rightArmTarget.transform.position;
             }
-            Inputs(player, pickUpPressed, pickupDown, pickUpReleased);
+            Inputs(pickUpPressed, pickupDown, pickUpReleased);
         }
 
-        private void Inputs(Player player, bool pickUpPressed, bool pickupDown, bool pickUpReleased)
+        private void Inputs(bool pickUpPressed, bool pickupDown, bool pickUpReleased)
         {
             if (_pickedUpItem != null)
             {
-                HandleThrowing(player, pickUpPressed, pickupDown, pickUpReleased);
+                HandleThrowing(pickUpPressed, pickupDown, pickUpReleased);
             }
             else
             {
-                HandlePickingUp(player, pickUpPressed, pickupDown, pickUpReleased);
+                HandlePickingUp(pickUpPressed, pickupDown, pickUpReleased);
             }
         }
 
-        private void HandlePickingUp(Player player, bool pickUpPressed, bool pickupDown, bool pickUpReleased)
+        private void HandlePickingUp(bool pickUpPressed, bool pickupDown, bool pickUpReleased)
         {
-            var itemToPickUp = GetClosestItem(player);
+            var itemToPickUp = GetClosestItem(_player);
 
             if (itemToPickUp == null) return;
 
@@ -66,12 +68,12 @@ namespace ScallyWags
 
             if (pickUpReleased)
             {
-                PickUp(itemToPickUp as PickableItem, player);
+                PickUp(itemToPickUp as PickableItem, _player);
                 RefreshItems();
             }
         }
 
-        private void HandleThrowing(Player player, bool pickUpPressed, bool pickupDown, bool pickUpReleased)
+        private void HandleThrowing(bool pickUpPressed, bool pickupDown, bool pickUpReleased)
         {
             if (pickupDown)
             {
@@ -167,5 +169,17 @@ namespace ScallyWags
             _pickedUpItem = null;
             _itemsNear.Clear();
         }
+
+        #region AI
+
+        public void PickedUp()
+        {
+            if (_pickedUpItem == null)
+            {
+                HandlePickingUp(false, false, true);
+            }
+        }
+        
+        #endregion
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.XR;
 
 namespace ScallyWags
 {
@@ -35,9 +36,12 @@ namespace ScallyWags
         private Respawnable _respawnable;
         private Drown _drown;
 
+        private Inputs inputs = new Inputs();
+
         // AudioEvents
         [SerializeField] private SimpleAudioEvent _emoteAudio;
         [SerializeField] private SimpleAudioEvent _slashSound;
+        public PickableItem currentItem;
 
         public void Init(int index)
         {
@@ -81,7 +85,7 @@ namespace ScallyWags
             _animationController = gameObject.AddComponent<AnimationController>();
             _animationController.Init(GetComponentInChildren<Animator>(), _rigidbody, _pickup, _jump, _slashSound);
 
-            _pickup.Init(transform, _animationController, GetComponentInChildren<RightArmTarget>());
+            _pickup.Init(this, transform, _animationController, GetComponentInChildren<RightArmTarget>());
             _interact.Init(_animationController);
             _jump.Init(transform);
             _emote.Init(_emoteAudio, _audioSourcePoolManager, _animationController);
@@ -101,17 +105,18 @@ namespace ScallyWags
             _drown.Tick();
 
             // Get inputs
-            Inputs inputs = new Inputs();
             inputs = _inputHandler.GetInputs(_index);
 
             // Handle input
             _playerController.Tick(transform, inputs.horizontal, inputs.vertical);
-            _pickup.Tick(this, inputs.pickUpPressed, inputs.pickUpDown, inputs.pickUpReleased);
+            _pickup.Tick(inputs.pickUpPressed, inputs.pickUpDown, inputs.pickUpReleased);
             _interact.Tick(_pickup.PickedUpItem, this, inputs.interActPressed);
             _jump.Tick(transform, _rigidbody, inputs.jumpPressed, inputs.jumpDown);
             _emote.Tick(inputs.emoteDown, transform);
 
             _animationController.Tick();
+
+            currentItem = _pickup.PickedUpItem;
         }
 
         public GameObject GetObject()
@@ -127,6 +132,11 @@ namespace ScallyWags
         public void Drop()
         {
             _pickup.Throw();
+        }
+
+        public void PickUp()
+        {
+            _pickup.PickedUp();
         }
 
         private void OnTriggerEnter(Collider other)

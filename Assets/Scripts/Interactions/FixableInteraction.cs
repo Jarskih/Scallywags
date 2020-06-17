@@ -39,6 +39,8 @@ namespace ScallyWags
             _bar.gameObject.SetActive(false);
             _audioSource = GetComponent<AudioSource>();
             _audioSource.outputAudioMixerGroup = _audioEvent.MixerGroup;
+            
+            GWorld.Instance.AddFixable(gameObject);
 
             CreateProgressBar();
         }
