@@ -11,6 +11,7 @@ public abstract class GAction : MonoBehaviour
     public float cost = 1.0f;
     public GameObject target;
     public string targetTag;
+    public ItemType itemType;
     public float duration = 0;
     public WorldState[] preConditionData;
     public WorldState[] afterEffectData;

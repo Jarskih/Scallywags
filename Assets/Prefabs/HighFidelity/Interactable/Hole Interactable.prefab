@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1f1f36299f4416aeb62dc410a831de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemType: 11
   scalesWithRepair: 0
   _audioEvent: {fileID: 11400000, guid: 6d003a3c49eac304fab42280bb112608, type: 2}
 --- !u!114 &8253712028182763050

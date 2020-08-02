@@ -11,7 +11,9 @@
     Bucket,
     Sword,
     Crab,
-    Skeleton
+    Skeleton,
+    Fire,
+    Hole
 }
     
 }

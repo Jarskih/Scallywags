@@ -3,23 +3,21 @@ using System.Collections.Generic;
 using ScallyWags;
 using UnityEngine;
 
-public class PickUp : GAction
-{ 
+public class Drop : GAction
+{
     public override bool PrePerform()
     {
-        target = GWorld.Instance.GetResource(ItemType.Hammer).RemoveResource();
-        if (target == null)
+        if (player.currentItem == null)
         {
             return false;
         }
-
-        Debug.Log("Started to pick up");
         return true;
     }
 
     public override void Perform()
     {
-        player.PickUp();
+        GWorld.Instance.GetResource(itemType)?.AddResource(player.currentItem.gameObject);
+        player.Drop();
         IsDone = true;
     }
 
@@ -27,14 +25,12 @@ public class PickUp : GAction
     {
         if (itemType == ItemType.Bucket)
         {
-            beliefs.ModifyState("HasBucket", 1);
+            beliefs.ModifyState("HasBucket", -1);
         }
         if (itemType == ItemType.Hammer)
         {
-            beliefs.ModifyState("HasHammer", 1);
+            beliefs.ModifyState("HasHammer", -1);
         }
-        
-        Debug.Log("Finished to pick up");
         return true;
     }
 }

@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6631716483718903207}
   m_Layer: 0
   m_Name: Fire bulb Interactable
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1f1f36299f4416aeb62dc410a831de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _itemType: 10
   scalesWithRepair: 1
   _audioEvent: {fileID: 11400000, guid: 072560e388e87af4597a321cce1877cd, type: 2}
 --- !u!114 &104528873635138268

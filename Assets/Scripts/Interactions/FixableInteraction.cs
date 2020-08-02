@@ -20,6 +20,8 @@ namespace ScallyWags
         private float _fixingTimer = 0f;
         private float _scaleSpeed = 0.35f;
 
+        [SerializeField] private ItemType _itemType;
+        
         [Header("Fire")] 
         [SerializeField] bool scalesWithRepair;
 
@@ -39,8 +41,8 @@ namespace ScallyWags
             _bar.gameObject.SetActive(false);
             _audioSource = GetComponent<AudioSource>();
             _audioSource.outputAudioMixerGroup = _audioEvent.MixerGroup;
-            
-            GWorld.Instance.AddFixable(gameObject);
+
+            GWorld.Instance.GetResource(_itemType).AddResource(gameObject);
 
             CreateProgressBar();
         }

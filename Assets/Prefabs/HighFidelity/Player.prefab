@@ -3405,8 +3405,12 @@ GameObject:
   - component: {fileID: 6715346769364609152}
   - component: {fileID: 2007687308386709796}
   - component: {fileID: 8821788758443315958}
-  - component: {fileID: 5108509469045462282}
   - component: {fileID: 8852892239956973254}
+  - component: {fileID: 6050861163348072985}
+  - component: {fileID: 5108509469045462282}
+  - component: {fileID: -1812087932909255088}
+  - component: {fileID: -6489105945660325808}
+  - component: {fileID: 8902456913546271887}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -3462,6 +3466,7 @@ MonoBehaviour:
       type: 3}
   _emoteAudio: {fileID: 11400000, guid: d7209bfd6acc6e0418fb8d66cb38f228, type: 2}
   _slashSound: {fileID: 11400000, guid: 7a6a688dd6ef8f544a93e0893e5a002f, type: 2}
+  currentItem: {fileID: 0}
 --- !u!65 &6950868564152302689
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3632,35 +3637,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions: []
---- !u!114 &5108509469045462282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4374859028719597281}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfaab13c8ff5be74a831cf9030abb9e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actionName: Repair
-  cost: 1
-  target: {fileID: 0}
-  targetTag: Hole
-  duration: 0
-  preConditionData:
-  - key: Fixable
-    value: 1
-  - key: HasHammer
-    value: 1
-  afterEffectData:
-  - key: Repair
-    value: 0
-  agent: {fileID: 0}
-  player: {fileID: 0}
-  isRunning: 0
-  IsDone: 0
 --- !u!114 &8852892239956973254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3673,14 +3649,155 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6d3ea1131a9704ab1511bcd4f4115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionName: PickUp
+  actionName: PickUpHammer
   cost: 1
   target: {fileID: 0}
   targetTag: Hammer
+  itemType: 2
+  duration: 0
+  preConditionData:
+  - key: Holes
+    value: 1
+  afterEffectData:
+  - key: HasHammer
+    value: 1
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  isRunning: 0
+  IsDone: 0
+--- !u!114 &6050861163348072985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374859028719597281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6d3ea1131a9704ab1511bcd4f4115d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: PickUpBucket
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Bucket
+  itemType: 6
+  duration: 0
+  preConditionData:
+  - key: Holes
+    value: 1
+  afterEffectData:
+  - key: HasBucket
+    value: 0
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  isRunning: 0
+  IsDone: 0
+--- !u!114 &5108509469045462282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374859028719597281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfaab13c8ff5be74a831cf9030abb9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: FixHole
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Hole
+  itemType: 11
+  duration: 0
+  preConditionData:
+  - key: HasHammer
+    value: 1
+  afterEffectData:
+  - key: Repair
+    value: 1
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  isRunning: 0
+  IsDone: 0
+--- !u!114 &-1812087932909255088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374859028719597281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfaab13c8ff5be74a831cf9030abb9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: PutOutFire
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Fire
+  itemType: 10
+  duration: 0
+  preConditionData:
+  - key: HasBucket
+    value: 1
+  afterEffectData:
+  - key: Repair
+    value: 1
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  isRunning: 0
+  IsDone: 0
+--- !u!114 &-6489105945660325808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374859028719597281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bee81be0e2efc49a8bf3a2bacca5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: DropHammer
+  cost: 1
+  target: {fileID: 0}
+  targetTag: 
+  itemType: 11
+  duration: 0
+  preConditionData:
+  - key: HasHammer
+    value: 1
+  afterEffectData:
+  - key: NoTool
+    value: 1
+  agent: {fileID: 0}
+  player: {fileID: 0}
+  isRunning: 0
+  IsDone: 0
+--- !u!114 &8902456913546271887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4374859028719597281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37bee81be0e2efc49a8bf3a2bacca5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: DropBucket
+  cost: 1
+  target: {fileID: 0}
+  targetTag: Bucket
+  itemType: 6
   duration: 0
   preConditionData: []
   afterEffectData:
-  - key: HasHammer
+  - key: NoTool
     value: 1
   agent: {fileID: 0}
   player: {fileID: 0}

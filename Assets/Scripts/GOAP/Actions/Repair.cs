@@ -7,7 +7,7 @@ public class Repair : GAction
 {
     public override bool PrePerform()
     {
-        target = GWorld.Instance.GetFixable();
+        target = GWorld.Instance.GetResource(itemType).RemoveResource();
         if (target == null)
         {
             return false;

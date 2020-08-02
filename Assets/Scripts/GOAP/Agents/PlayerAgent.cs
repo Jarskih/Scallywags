@@ -10,6 +10,9 @@ public class PlayerAgent : GAgent
         Init();
         
         SubGoal goal1 = new SubGoal("Repair", 1, false);
-        goals.Add(goal1, 1);
+        goals.Add(goal1, 2);
+        
+        SubGoal goal2 = new SubGoal("NoTool", 1, false);
+        goals.Add(goal2, 1);
     }
 }
